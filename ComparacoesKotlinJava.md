@@ -115,8 +115,7 @@
 
 
 <ul>
-<li>Java: Java também cria threads de maneira explícita usando Thread ou Runnable.
-<li>
+<li>Java: Java também cria threads de maneira explícita usando Thread ou Runnable.</li>
 </ul>
 
     new Thread(new Runnable() {
