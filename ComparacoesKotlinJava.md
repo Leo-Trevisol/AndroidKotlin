@@ -1,9 +1,8 @@
 <h1>Comparando trechos de código Kotlin com trechos em Java</h1>
 
 <h3>
-    Resumo: <br>
-    Kotlin é mais conciso e tem recursos modernos como lambdas, when, e propriedades delegadas como lateinit, que permitem escrever menos código de forma mais clara e segura. <br>
-    Java, embora ainda amplamente utilizado, exige mais verbosidade e tem uma curva de desenvolvimento ligeiramente mais complexa devido à falta de algumas dessas funcionalidades sintéticas e práticas de Kotlin. <br>
+    Kotlin é mais conciso e tem recursos modernos como lambdas, when, e propriedades delegadas como lateinit, que permitem escrever menos código de forma mais clara e segura. <br> <br>
+    Java ainda é amplamente utilizado, exige mais verbosidade e tem uma curva de desenvolvimento ligeiramente mais complexa devido à falta de algumas dessas funcionalidades sintéticas e práticas de Kotlin. <br>
 </h3>
 
 <h2>Estrutura Geral</h2>
