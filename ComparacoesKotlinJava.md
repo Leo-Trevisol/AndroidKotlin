@@ -49,7 +49,7 @@
     val buttonConvert = findViewById<Button>(R.id.bt_converter)
 
 <ul>
-<li>Java: Em Java, o desenvolvedor precisa fazer chamadas explícitas a findViewById sempre que precisar acessar um componente da interface, sendo necessário um casting quando for utilizado em versões mais antigas de Java.<li>
+<li>Java: Em Java, o desenvolvedor precisa fazer chamadas explícitas a findViewById sempre que precisar acessar um componente da interface, sendo necessário um casting quando for utilizado em versões mais antigas de Java.</li>
 </ul>
 
     Button buttonConvert = (Button) findViewById(R.id.bt_converter);
@@ -57,7 +57,7 @@
 <h2>Funções Anônimas (Lambda) e OnClickListener</h2>
 
 <ul>
-<li>Kotlin: O uso de expressões lambda em Kotlin permite definir listeners de forma mais concisa. Kotlin substitui a interface View.OnClickListener por uma função lambda que reduz o código boilerplate.<li>
+<li>Kotlin: O uso de expressões lambda em Kotlin permite definir listeners de forma mais concisa. Kotlin substitui a interface View.OnClickListener por uma função lambda que reduz o código boilerplate.</li>
 </ul>
 
     buttonConvert.setOnClickListener {
@@ -65,7 +65,7 @@
     }
 
 <ul>
-<li>Java: Em Java, é necessário criar uma instância anônima de OnClickListener.<li>
+<li>Java: Em Java, é necessário criar uma instância anônima de OnClickListener.</li>
 </ul>
 
     buttonConvert.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,7 @@
 <h2>when vs. switch</h2>
 
 <ul>
-<li>Kotlin: A construção when em Kotlin é mais poderosa e flexível do que o switch de Java. O when pode retornar valores e não precisa de break para evitar "fall-through".<li>
+<li>Kotlin: A construção when em Kotlin é mais poderosa e flexível do que o switch de Java. O when pode retornar valores e não precisa de break para evitar "fall-through".</li>
 </ul>
 
     val currency = when(radioSelected) {
@@ -88,7 +88,7 @@
     }
 
 <ul>
-<li>Java: O equivalente em Java usaria o switch, que é menos flexível e requer break para evitar a execução de múltiplos casos.<li>
+<li>Java: O equivalente em Java usaria o switch, que é menos flexível e requer break para evitar a execução de múltiplos casos.</li>
 </ul>
 
     String currency;
@@ -106,7 +106,7 @@
 <h2>Concorrência com Thread</h2>
 
 <ul>
-<li>Kotlin: Em Kotlin, a criação de threads segue o mesmo princípio de Java. No entanto, Kotlin tem bibliotecas mais modernas como coroutines, que simplificam a programação assíncrona. Nesse exemplo, a implementação é semelhante à de Java.<li>
+<li>Kotlin: Em Kotlin, a criação de threads segue o mesmo princípio de Java. No entanto, Kotlin tem bibliotecas mais modernas como coroutines, que simplificam a programação assíncrona. Nesse exemplo, a implementação é semelhante à de Java.</li>
 </ul>
 
     Thread {
