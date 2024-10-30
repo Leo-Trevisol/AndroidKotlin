@@ -1,5 +1,6 @@
 package com.project.estudandokotlinudemy
 
+import org.apache.tools.ant.taskdefs.condition.Not
 import java.lang.Double.max
 import java.lang.Double.min
 import kotlin.math.max
@@ -166,6 +167,29 @@ fun main() {
         //...
     }
 
+    //parametrosNaoObrigatorios(rua : String, cep : String, nome : String, num : Int = 0)
+    parametrosNaoObrigatorios("rua", "cep", "nome")
+
+    //fora de ordem
+    parametrosNaoObrigatorios(cep = "cep", nome = "nome", rua = "rua")
+
+    //chamando metodo com número de parametros dinamico
+    mediaVararg(1f, 2f, 3f)
+
+    //chamando metodo com generics
+    funGeneric(false, 1f,2f,4f,6f)
+
+    //função que contém Any, como se fosse generics
+    funAny(false)
+    funAny("leo")
+
+    //Unit é o void, não retorna nada
+    funUnit()
+
+    //Nothing retorna exceção, todo
+    funNothing()
+
+
 }
 
 fun helloWorld(nome : String) : String{
@@ -202,4 +226,43 @@ fun saudacao(dia : Boolean) : String{
             else -> "Valor fora"
         }
     }
+
+fun parametrosNaoObrigatorios(rua : String, cep : String, nome : String, num : Int = 0){
+
+}
+
+fun parametrosNaoObrigatorios2(rua : String, cep : String, num : Int = 0, nome : String){
+
+}
+
+fun mediaVararg(vararg notas : Float) : Float{
+    var soma = 0f
+
+    for(n in notas){
+        soma += n
+    }
+    return soma / notas.size
+}
+
+fun <T, K> funGeneric(texto : T, vararg notas: K) : Float{
+    var soma = 0f
+    var cont = 0
+    for(n in notas){
+        if(n is Float){
+        soma +=
+        cont++
+        }
+    }
+    return soma / cont
+}
+
+fun funAny(nome : Any){}
+
+fun funUnit() : Unit{}
+
+fun funNothing() : Nothing{
+    return TODO("Ainda não implementado")
+}
+
+
 
