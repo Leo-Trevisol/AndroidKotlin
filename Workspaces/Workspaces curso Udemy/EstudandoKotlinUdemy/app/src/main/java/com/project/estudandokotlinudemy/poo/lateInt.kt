@@ -12,6 +12,7 @@ class Receita(){
         if(!this::instrucoes.isInitialized){
             instrucoes = "2 ovos"
         }
+        println(instrucoes)
     }
 }
 
@@ -21,6 +22,6 @@ fun main(){
 
     r.geraReceita()
 
-   println(r.imprimeReceita())
+    r.imprimeReceita()
 
 }
