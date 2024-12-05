@@ -5,51 +5,72 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.project.projetomotivation.MotivationConstraints
+import com.devmasterteam.motivation.infra.MotivationConstraints
 import com.project.projetomotivation.R
 import com.project.projetomotivation.SecurityPreferences
 import com.project.projetomotivation.databinding.ActivityUserBinding
 
 class UserActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding : ActivityUserBinding
+    private lateinit var binding: ActivityUserBinding
+    private lateinit var securityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         supportActionBar?.hide()
 
-        binding.buttonSave.setOnClickListener(this)
+        // Inicializa variáveis da classe
+        securityPreferences = SecurityPreferences(this)
 
+        // Acesso aos elementos de interface)
+        binding.buttonSave.setOnClickListener(this)
         verifyUserName()
     }
 
-    override fun onClick(view: View) {
-       if(view.id == R.id.button_save){
-            handeleSave()
-       }
+    /**
+     * Tratamento de clicks dos elementos
+     * */
+    override fun onClick(view: View?) {
+        val id: Int? = view?.id
+        if (id == R.id.button_save) {
+            handleSave()
+        }
     }
 
-    private fun verifyUserName(){
-        val name = SecurityPreferences(this).getString(MotivationConstraints.KEY.USER_NAME)
-
-        if(name != ""){
+    /**
+     * Verifica se usuário já preencheu o nome
+     * */
+    private fun verifyUserName() {
+        val name = securityPreferences.getStoredString(MotivationConstraints.KEY.USER_NAME)
+        if (name != "") {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
 
-    private fun handeleSave(){
-        val name = binding.editName.text.toString()
+    /**
+     * Salva o nome do usuário para utilizações futuras
+     * */
+    private fun handleSave() {
 
-        SecurityPreferences(this).storeString(MotivationConstraints.KEY.USER_NAME, name)
+        // Obtém o nome
+        val name: String = binding.editName.text.toString()
 
-        if(name != ""){
+        // Verifica se usuário preencheu o nome
+        if (name == "") {
+            Toast.makeText(this, getString(R.string.validation_mandatory_name), Toast.LENGTH_LONG)
+                .show()
+        } else {
+            // Salva os dados do usuário e redireciona para as frases
+            securityPreferences.storeString(MotivationConstraints.KEY.USER_NAME, name)
             startActivity(Intent(this, MainActivity::class.java))
+
+            // Impede que seja possível voltar a Activity
             finish()
-        }else{
-            Toast.makeText(this,"Preencha o campo", Toast.LENGTH_LONG ).show()
         }
     }
 }
