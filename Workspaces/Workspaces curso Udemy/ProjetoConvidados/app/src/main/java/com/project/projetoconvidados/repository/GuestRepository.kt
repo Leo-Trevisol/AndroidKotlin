@@ -56,7 +56,7 @@ class GuestRepository private constructor(context : Context){
             values.put(DataBaseConstants.COLUMS.NAME, guest.name)
             values.put(DataBaseConstants.COLUMS.PRESENCE, presence)
 
-            val selection = DataBaseConstants.GUEST.TABLE_NAME + " = ?"
+            val selection = DataBaseConstants.COLUMS.ID + " = ?"
             val args = arrayOf(guest.id.toString())
 
             db.update(DataBaseConstants.GUEST.TABLE_NAME, values,selection, args)

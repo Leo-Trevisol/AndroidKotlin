@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.projetoconvidados.R
 import com.project.projetoconvidados.constants.DataBaseConstants
@@ -15,6 +16,8 @@ class GuestFormActivity : AppCompatActivity(), OnClickListener {
 
     lateinit var binding : ActivityGuestFormBinding
     lateinit var viewModel : GuestFormViewModel
+
+    private var guestId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +30,7 @@ class GuestFormActivity : AppCompatActivity(), OnClickListener {
         binding.buttonSave.setOnClickListener(this)
         binding.radioPresence.isChecked = true
 
+        observe()
         loadData()
     }
 
@@ -35,9 +39,11 @@ class GuestFormActivity : AppCompatActivity(), OnClickListener {
             val name = binding.editName.text.toString()
             val presence = binding.radioPresence.isChecked
 
-            val guest = GuestModel(0, name, presence)
+            val guest = GuestModel(guestId, name, presence)
 
-            viewModel.insert(guest)
+            viewModel.saveOrUpdate(guest)
+
+            finish()
         }
     }
 
@@ -45,9 +51,19 @@ class GuestFormActivity : AppCompatActivity(), OnClickListener {
         val bundle = intent.extras
 
         if(bundle != null){
-            val guestid = bundle.getInt(DataBaseConstants.GUEST.ID)
-
-            viewModel.get(guestid)
+            guestId = bundle.getInt(DataBaseConstants.GUEST.ID)
+            viewModel.get(guestId)
         }
+    }
+
+    private fun observe(){
+        viewModel.guest.observe(this, Observer{
+            binding.editName.setText(it.name)
+            if(it.presence){
+                binding.radioPresence.isChecked = true
+            }else{
+                binding.radioAbsent.isChecked = true
+            }
+        })
     }
 }

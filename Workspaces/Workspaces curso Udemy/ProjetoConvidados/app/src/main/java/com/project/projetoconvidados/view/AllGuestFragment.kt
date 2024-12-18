@@ -64,6 +64,11 @@ class AllGuestFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAll()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
