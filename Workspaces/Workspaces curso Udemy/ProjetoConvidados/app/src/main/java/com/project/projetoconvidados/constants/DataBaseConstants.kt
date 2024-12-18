@@ -4,6 +4,7 @@ class DataBaseConstants {
 
     object GUEST{
         const val TABLE_NAME = "Guest"
+        const val ID = "guestid"
     }
 
     object COLUMS{

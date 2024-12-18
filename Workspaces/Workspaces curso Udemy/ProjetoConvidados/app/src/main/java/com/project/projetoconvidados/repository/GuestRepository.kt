@@ -72,7 +72,7 @@ class GuestRepository private constructor(context : Context){
             //pega a conexão weitable, dizendo que vamos inserir
             val db = guestDataBase.writableDatabase
 
-            val selection = DataBaseConstants.GUEST.TABLE_NAME + " = ?"
+            val selection = DataBaseConstants.COLUMS.ID + " = ?"
             val args = arrayOf(id.toString())
 
             db.delete(DataBaseConstants.GUEST.TABLE_NAME, selection, args)
@@ -82,6 +82,45 @@ class GuestRepository private constructor(context : Context){
         }
     }
 
+
+    @SuppressLint("Range")
+    fun get(id : Int) : GuestModel?{
+
+        var guest : GuestModel? = null
+
+        try {
+
+            val db = guestDataBase.readableDatabase
+
+            val projection = arrayOf(
+                DataBaseConstants.COLUMS.ID,
+                DataBaseConstants.COLUMS.NAME,
+                DataBaseConstants.COLUMS.PRESENCE
+            )
+
+            val selection = DataBaseConstants.COLUMS.ID + " = ?"
+            val args = arrayOf(id.toString())
+
+            val cursor = db.query(
+                DataBaseConstants.GUEST.TABLE_NAME, projection,
+                selection, args, null, null, null
+            )
+
+            if(cursor != null && cursor.count > 0){
+                while (cursor.moveToNext()){
+                    val name = cursor.getString(cursor.getColumnIndex(DataBaseConstants.COLUMS.NAME))
+                    val presence = cursor.getInt(cursor.getColumnIndex(DataBaseConstants.COLUMS.PRESENCE))
+
+                    guest = (GuestModel(id, name, presence == 1))
+                }
+            }
+
+        }catch (e : Exception){
+            return guest
+        }
+
+        return guest
+    }
 
     @SuppressLint("Range")
     fun getAll() : List<GuestModel>{
