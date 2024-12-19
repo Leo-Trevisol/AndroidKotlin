@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.projetoconvidados.R
@@ -63,6 +64,13 @@ class GuestFormActivity : AppCompatActivity(), OnClickListener {
                 binding.radioPresence.isChecked = true
             }else{
                 binding.radioAbsent.isChecked = true
+            }
+        })
+
+        viewModel.saveGuest.observe(this, Observer{
+            if(it != ""){
+                Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
+                finish()
             }
         })
     }
