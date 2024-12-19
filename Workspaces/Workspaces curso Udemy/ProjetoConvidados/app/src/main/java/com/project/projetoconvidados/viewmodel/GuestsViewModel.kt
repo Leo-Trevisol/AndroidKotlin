@@ -9,7 +9,7 @@ import com.project.projetoconvidados.repository.GuestRepository
 
 class GuestsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = GuestRepository.getInstance(application)
+    private val repository = GuestRepository(application.applicationContext)
 
     private val listGuests = MutableLiveData<List<GuestModel>>()
     val guests: LiveData<List<GuestModel>> = listGuests

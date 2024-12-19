@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Guest")
-class GuestModel{
+class GuestModel {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id : Int = 0
+    var id: Int = 0
 
     @ColumnInfo(name = "name")
-    val name : String = ""
+    var name: String = ""
 
     @ColumnInfo(name = "presence")
-    val presence : Boolean = false
+    var presence: Boolean = false
 
 }
