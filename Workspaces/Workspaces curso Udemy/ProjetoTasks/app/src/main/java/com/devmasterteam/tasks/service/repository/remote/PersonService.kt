@@ -12,7 +12,7 @@ interface PersonService {
     @POST("Authentication/Login")
     @FormUrlEncoded
     fun login(@Field("email") email : String,
-              @Field("passowrd") password : String
+              @Field("password") password : String
     ) : Call<PersonModel>
 
     //POST http://devmasterteam.com/CursoAndroidAPI/Authentication/Create
@@ -20,6 +20,6 @@ interface PersonService {
     @FormUrlEncoded
     fun create(@Field("name") name : String,
                @Field("email") email : String,
-               @Field("passowrd") password : String
+               @Field("password") password : String
     ) : Call<PersonModel>
 }
