@@ -11,6 +11,7 @@ import com.devmasterteam.tasks.service.model.PersonModel
 import com.devmasterteam.tasks.service.model.ValidationModel
 import com.devmasterteam.tasks.service.repository.PersonRepository
 import com.devmasterteam.tasks.service.repository.SecurityPreferences
+import com.devmasterteam.tasks.service.repository.remote.RetrofitClient
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -31,6 +32,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 securityPreferences.store(TaskConstants.SHARED.TOKEN_KEY, response.token)
                 securityPreferences.store(TaskConstants.SHARED.PERSON_KEY, response.personKey)
                 securityPreferences.store(TaskConstants.SHARED.PERSON_NAME, response.name)
+
+                RetrofitClient.addHeaders(response.token, response.personKey)
+
                 _login.value = ValidationModel()
             }
 
