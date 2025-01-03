@@ -68,8 +68,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         if(!logged){
             priorityRepository.list(object : APIListener<List<PriorityModel>>{
                 override fun onSucess(response: List<PriorityModel>) {
-
-                    val s = ""
+                   priorityRepository.save(response)
                 }
 
                 override fun onFailure(message: String) {
