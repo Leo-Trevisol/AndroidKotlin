@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.devmasterteam.tasks.R
 import com.devmasterteam.tasks.databinding.ActivityRegisterBinding
 import com.devmasterteam.tasks.databinding.ActivityTaskFormBinding
+import com.devmasterteam.tasks.service.constants.TaskConstants
 import com.devmasterteam.tasks.service.model.PriorityModel
 import com.devmasterteam.tasks.service.model.TaskModel
 import com.devmasterteam.tasks.viewmodel.RegisterViewModel
@@ -39,6 +40,8 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
         binding.buttonDate.setOnClickListener(this)
 
         viewModel.loadPriorities()
+
+        loadDataFromActivity()
 
         observe()
 
@@ -85,6 +88,19 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
             }
         }
 
+        viewModel.task.observe(this){
+            binding.editDescription.setText(it.description)
+            binding.checkComplete.isChecked = it.complete
+            binding.buttonDate.text = it.dueDate
+        }
+
+        viewModel.taskLoad.observe(this){
+            if(!it.status()){
+                toast(it.message())
+                finish()
+            }
+        }
+
     }
 
     private fun toast(str : String){
@@ -112,5 +128,13 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
         }
 
         viewModel.save(task)
+    }
+
+    private fun loadDataFromActivity(){
+        val bundle = intent.extras
+        if(bundle != null){
+            val taskId = bundle.getInt(TaskConstants.BUNDLE.TASKID)
+            viewModel.load(taskId)
+        }
     }
 }

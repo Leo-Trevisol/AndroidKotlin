@@ -16,13 +16,12 @@ open class BaseRepository(val context : Context) {
         return Gson().fromJson(str, String::class.java)
     }
 
-    fun <T>executeCall(call : Call<T>,listener : APIListener<T>){
-
+    fun <T> executeCall(call: Call<T>, listener: APIListener<T>) {
         call.enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
-                if(response.code() == TaskConstants.HTTP.SUCCESS){
+                if (response.code() == TaskConstants.HTTP.SUCCESS) {
                     response.body()?.let { listener.onSucess(it) }
-                }else{
+                } else {
                     listener.onFailure(failResponse(response.errorBody()!!.string()))
                 }
             }
@@ -30,9 +29,7 @@ open class BaseRepository(val context : Context) {
             override fun onFailure(call: Call<T>, t: Throwable) {
                 listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
             }
-
         })
-
     }
 }
 
