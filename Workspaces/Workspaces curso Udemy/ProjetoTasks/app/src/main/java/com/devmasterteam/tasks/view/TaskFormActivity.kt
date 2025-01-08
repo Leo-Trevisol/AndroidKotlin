@@ -28,6 +28,8 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
 
     private var priorityList : List<PriorityModel> = mutableListOf()
 
+    private var taskIdentification = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -81,7 +83,11 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
 
         viewModel.taskSave.observe(this){
             if(it.status()){
-                toast("Sucesso")
+                if(taskIdentification == 0){
+                    toast("Tarefa criada com sucesso!")
+                }else{
+                    toast("Tarefa atualizada com sucesso!")
+                }
                 finish()
             }else{
                 toast(it.message())
@@ -130,7 +136,7 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
 
     private fun handleSave(){
         var task = TaskModel().apply {
-            this.id = 0
+            this.id = taskIdentification
             this.description = binding.editDescription.text.toString()
 
             val index = binding.spinnerPriority.selectedItemPosition
@@ -146,8 +152,8 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
     private fun loadDataFromActivity(){
         val bundle = intent.extras
         if(bundle != null){
-            val taskId = bundle.getInt(TaskConstants.BUNDLE.TASKID)
-            viewModel.load(taskId)
+            taskIdentification = bundle.getInt(TaskConstants.BUNDLE.TASKID)
+            viewModel.load(taskIdentification)
         }
     }
 }
