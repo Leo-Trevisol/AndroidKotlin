@@ -91,7 +91,9 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
         viewModel.task.observe(this){
             binding.editDescription.setText(it.description)
             binding.checkComplete.isChecked = it.complete
-            binding.buttonDate.text = it.dueDate
+            binding.spinnerPriority.setSelection(getIndex(it.priorityId))
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(it.dueDate)
+            binding.buttonDate.text = SimpleDateFormat("dd-MM-yyyy").format(date)
         }
 
         viewModel.taskLoad.observe(this){
@@ -101,6 +103,17 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
             }
         }
 
+    }
+
+    private fun getIndex(priorityId : Int) : Int{
+        var index = 0
+        for(l in priorityList){
+            if(l.id == priorityId){
+                break
+            }
+            index++
+        }
+        return index
     }
 
     private fun toast(str : String){
