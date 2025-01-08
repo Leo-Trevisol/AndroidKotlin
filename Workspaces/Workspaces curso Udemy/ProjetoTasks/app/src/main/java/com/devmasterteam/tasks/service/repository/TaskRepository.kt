@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TaskRepository(val context : Context) : BaseRepository(){
+class TaskRepository(context: Context) : BaseRepository(context){
 
     private val remote = RetrofitClient.getService(TaskService::class.java)
 
@@ -34,42 +34,17 @@ class TaskRepository(val context : Context) : BaseRepository(){
     }
 
     fun list(call : Call<List<TaskModel>>, listener : APIListener<List<TaskModel>>){
-        call.enqueue(object : Callback<List<TaskModel>> {
-            override fun onResponse(call: Call<List<TaskModel>>, response: Response<List<TaskModel>>) {
-                handleResponse(response, listener)
-            }
-
-            override fun onFailure(call: Call<List<TaskModel>>, t: Throwable) {
-                listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
-            }
-        })
+        executeCall(call, listener)
     }
 
     fun create(task : TaskModel, listener : APIListener<Boolean>) {
 
         val call = remote.create(task.priorityId, task.description, task.dueDate, task.complete)
-        call.enqueue(object : Callback<Boolean> {
-            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                handleResponse(response, listener)
-            }
-
-            override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
-            }
-        })
+        executeCall(call, listener)
     }
 
     fun delete(id : Int, listener : APIListener<Boolean>){
-        val call = remote.delete(id)
-        call.enqueue(object : Callback<Boolean> {
-            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                handleResponse(response, listener)
-            }
-
-            override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
-            }
-        })
+        executeCall(remote.delete(id), listener)
     }
 
 }
