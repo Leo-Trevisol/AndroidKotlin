@@ -22,6 +22,7 @@ class AllTasksFragment : Fragment() {
     private lateinit var viewModel: TaskListViewModel
     private var _binding: FragmentAllTasksBinding? = null
     private val binding get() = _binding!!
+    private var taskFilter = 0
 
     private val adapter = TaskAdapter()
 
@@ -31,6 +32,8 @@ class AllTasksFragment : Fragment() {
 
         binding.recyclerAllTasks.layoutManager = LinearLayoutManager(context)
         binding.recyclerAllTasks.adapter = adapter
+
+        taskFilter = requireArguments().getInt(TaskConstants.BUNDLE.TASKFILTER, 0)
 
         val listener = object : TaskListener{
             override fun onListClick(id: Int) {
@@ -71,7 +74,7 @@ class AllTasksFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.list()
+        viewModel.list(taskFilter)
     }
 
     private fun observe() {
